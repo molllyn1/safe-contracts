@@ -4,13 +4,14 @@
   "description": "Ethereum multisig contract",
   "homepage": "https://github.com/gnosis/safe-contracts/",
   "license": "GPL-3.0",
-  "main": "src/index.ts",
+  "main": "dist/index.ts",
+  "typings": "dist/index.d.ts",
   "files": [
     "contracts",
+    "dist",
     "src",
     "test",
-    "build",
-    "networks.json"
+    "build"
   ],
   "scripts": {
     "build": "hardhat compile",
