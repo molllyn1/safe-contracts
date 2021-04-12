@@ -73,6 +73,7 @@ const decodeTx = (account: string, tx: ethers.providers.TransactionResponse): De
     } catch (e) {
         // TODO: try to decode other ways 
         console.log("Unknown function", tx.data.slice(0, 10))
+        return undefined
     }
 }
 
