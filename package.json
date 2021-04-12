@@ -4,7 +4,7 @@
   "description": "Ethereum multisig contract",
   "homepage": "https://github.com/gnosis/safe-contracts/",
   "license": "GPL-3.0",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
     "contracts",
