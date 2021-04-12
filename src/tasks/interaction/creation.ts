@@ -2,7 +2,7 @@ import { task, types } from "hardhat/config";
 import { AddressZero } from "@ethersproject/constants";
 import { getAddress } from "@ethersproject/address";
 import { calculateProxyAddress } from "../../utils/proxies";
-import { safeSingleton, proxyFactory, contractFactory } from "./contracts";
+import { safeSingleton, proxyFactory } from "./contracts";
 
 const parseSigners = (rawSigners: string): string[] => {
     return rawSigners.split(",").map(address => getAddress(address))
@@ -18,7 +18,7 @@ task("create-safe", "Deploys and verifies Safe contracts")
     .addParam("factory", "Set to overwrite which factory address to use", undefined, types.string, true)
     .setAction(async (taskArgs, hre) => {
         const singleton = await safeSingleton(hre, taskArgs.l2, taskArgs.singleton)
-        const factory = await proxyFactory(hre, taskArgs.singleton)
+        const factory = await proxyFactory(hre, taskArgs.factory)
         const signers: string[] = taskArgs.signers ? parseSigners(taskArgs.signers) : [(await hre.getNamedAccounts()).deployer]
         const fallbackHandler = getAddress(taskArgs.fallback)
         const setupData = singleton.interface.encodeFunctionData(

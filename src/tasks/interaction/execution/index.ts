@@ -3,6 +3,8 @@ import { task, types } from "hardhat/config";
 import { contractFactory } from "../contracts";
 import { getSingletonAddress } from "../information";
 import { buildSafeTransaction, populateExecuteTx, safeApproveHash } from "../../../utils/execution";
+import { parseEther } from "@ethersproject/units";
+import { isHexString } from "ethers/lib/utils";
 
 task("execute", "Executes a Safe transaction")
     .addParam("address", "Address or ENS name of the Safe to check", undefined, types.string)
@@ -20,7 +22,8 @@ task("execute", "Executes a Safe transaction")
         const safeAddress = await safe.resolvedAddress
         console.log(`Using Safe at ${safeAddress} with ${relayer.address}`)
         const nonce = await safe.nonce()
-        const tx = buildSafeTransaction({ to: taskArgs.to, nonce })
+        if (isHexString(taskArgs.data)) throw Error("Invalid hex string provided for data")
+        const tx = buildSafeTransaction({ to: taskArgs.to, value: parseEther(taskArgs.value), data: taskArgs.data, nonce, operation: taskArgs.delegatecall ? 1 : 0 })
         const populatedTx: PopulatedTransaction = await populateExecuteTx(safe, tx, [ await safeApproveHash(relayer, safe, tx, true) ])
         if (taskArgs.useAccessList) {
             populatedTx.type = 1
