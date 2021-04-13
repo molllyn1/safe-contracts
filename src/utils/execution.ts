@@ -103,8 +103,8 @@ export const signHash = async (signer: Signer, hash: string): Promise<SafeSignat
     }
 }
 
-export const safeSignMessage = async (signer: Wallet, safe: Contract, safeTx: SafeTransaction, chainId?: BigNumberish): Promise<SafeSignature> => {
-    const cid = chainId || (await signer.provider.getNetwork()).chainId
+export const safeSignMessage = async (signer: Signer, safe: Contract, safeTx: SafeTransaction, chainId?: BigNumberish): Promise<SafeSignature> => {
+    const cid = chainId || (await signer.provider!!.getNetwork()).chainId
     return signHash(signer, calculateSafeTransactionHash(safe, safeTx, cid))
 }
 
