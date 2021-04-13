@@ -43,7 +43,7 @@ export declare const calculateSafeMessageHash: (safe: Contract, message: string,
 export declare const safeApproveHash: (signer: Signer, safe: Contract, safeTx: SafeTransaction, skipOnChainApproval?: boolean | undefined) => Promise<SafeSignature>;
 export declare const safeSignTypedData: (signer: Signer & TypedDataSigner, safe: Contract, safeTx: SafeTransaction, chainId?: BigNumberish | undefined) => Promise<SafeSignature>;
 export declare const signHash: (signer: Signer, hash: string) => Promise<SafeSignature>;
-export declare const safeSignMessage: (signer: Wallet, safe: Contract, safeTx: SafeTransaction, chainId?: BigNumberish | undefined) => Promise<SafeSignature>;
+export declare const safeSignMessage: (signer: Signer, safe: Contract, safeTx: SafeTransaction, chainId?: BigNumberish | undefined) => Promise<SafeSignature>;
 export declare const buildSignatureBytes: (signatures: SafeSignature[]) => string;
 export declare const logGas: (message: string, tx: Promise<any>, skip?: boolean | undefined) => Promise<any>;
 export declare const executeTx: (safe: Contract, safeTx: SafeTransaction, signatures: SafeSignature[], overrides?: any) => Promise<any>;
